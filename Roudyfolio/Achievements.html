@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall of Trophies</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-image: url(assets/AchievementBG2.webp);
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .shelf {
+            background: linear-gradient(90deg, #8b4513, #a0522d);
+            height: 20px;
+            margin: 150px 20px 30px 20px;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .shelf::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: rgba(0,0,0,0.03);
+            border-radius: 4px;
+        }
+
+        .image-container {
+            position: absolute;
+            top: -120px;
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            filter: brightness(0.9);
+        }
+
+        .image-container:hover img {
+            filter: brightness(1.1);
+            transform: translateY(-5px);
+        }
+
+        #fullscreen-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #fullscreen-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        #back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: none;
+            z-index: 1001;
+        }
+
+        #back-button:hover {
+            background: #f0f0f0;
+        }
+
+
+        .main {
+  width: 170px;
+  height: 70px;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: "Josefin Sans", sans-serif;
+  background-color: #fdcb6e;
+  cursor: pointer;
+  box-shadow: 5px 5px 0 0;
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20px;
+}
+a {
+  position: absolute;
+  text-decoration: none;
+  color: #000;
+  z-index: 1000;
+}
+.main::after {
+  content: "";
+  top: 0;
+  left: 0;
+  width: 170px;
+  height: 70px;
+  background: linear-gradient(to right, #ff7675, #e84393);
+  opacity: 0;
+  transition: 0.3s;
+}
+.main:hover {
+  box-shadow: -5px -5px 0 0;
+  transform: scale(0.9);
+}
+.main:hover::after {
+  opacity: 1;
+}
+    </style>
+</head>
+<body>
+
+    
+
+
+    <div class="shelf">
+        <div class="image-container" style="left: 0%">
+            <img src="assets/OOP_Project_pic.png" alt="Image 1">
+        </div>
+        <div class="image-container" style="left: 20%">
+            <img src="assets/Coming soon.jpg" alt="Image 2">
+        </div>
+        <div class="image-container" style="left: 40%">
+            <img src="assets/WDC_Trophy_pic.jpg" alt="Image 3">
+        </div>
+        <div class="image-container" style="left: 60%">
+            <img src="assets/WCC_Pic.png" alt="Image 4">
+        </div>
+    </div>
+
+    <div class="shelf">
+        <div class="image-container" style="left: 10%">
+            <img src="assets/Coming soon.jpg" alt="Image 5">
+        </div>
+        <div class="image-container" style="left: 30%">
+            <img src="assets/Coming soon.jpg" alt="Image 6">
+        </div>
+        <div class="image-container" style="left: 50%">
+            <img src="assets/Portfolio_prjct_pic.png" alt="Image 7">
+        </div>
+        <div class="image-container" style="left: 70%">
+            <img src="assets/Coming soon.jpg" alt="Image 8">
+        </div>
+    </div>
+
+    <div id="fullscreen-view">
+        <img id="fullscreen-image" src="" alt="Fullscreen Image">
+    </div>
+    <button id="back-button">Back</button>
+
+    <script>
+        const images = document.querySelectorAll('.image-container img');
+        const fullscreenView = document.getElementById('fullscreen-view');
+        const fullscreenImage = document.getElementById('fullscreen-image');
+        const backButton = document.getElementById('back-button');
+
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                fullscreenImage.src = img.src;
+                fullscreenView.style.display = 'flex';
+                backButton.style.display = 'block';
+                
+                // Add animation
+                fullscreenImage.style.transform = 'scale(0)';
+                setTimeout(() => {
+                    fullscreenImage.style.transition = 'transform 0.3s ease';
+                    fullscreenImage.style.transform = 'scale(1)';
+                }, 50);
+            });
+        });
+
+        backButton.addEventListener('click', () => {
+            fullscreenView.style.display = 'none';
+            backButton.style.display = 'none';
+            fullscreenImage.style.transition = 'none';
+        });
+    </script>
+    <div class="main"><a href="index.html">Back</a>
+    </div>
+</body>
+</html>

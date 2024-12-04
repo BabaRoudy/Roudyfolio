@@ -1,0 +1,54 @@
+<html>
+<head>
+  <title>Quiz</title>
+  <link rel="stylesheet" href="Quiz_style.css">
+</head>
+<body>
+  <a href="index.html">Back</a>
+
+  <div class="game-container">
+    <div class="money-display">
+      <h2>Money Collected: <span id="money-earned">$0</span></h2>
+  
+      <div class="money-ladder">
+        <div class="ladder-step" id="ladder-step-1">$100</div>
+        <div class="ladder-step" id="ladder-step-2">$200</div>
+        <div class="ladder-step" id="ladder-step-3">$300</div>
+        <div class="ladder-step" id="ladder-step-4">$500</div>
+        <div class="ladder-step" id="ladder-step-5">$1,000</div>
+        <div class="ladder-step" id="ladder-step-6">$2,000</div>
+        <div class="ladder-step" id="ladder-step-7">$4,000</div>
+        <div class="ladder-step" id="ladder-step-8">$8,000</div>
+        <div class="ladder-step" id="ladder-step-9">$16,000</div>
+        <div class="ladder-step" id="ladder-step-10">$32,000</div>
+        <div class="ladder-step" id="ladder-step-11">$64,000</div>
+        <div class="ladder-step" id="ladder-step-12">$125,000</div>
+        <div class="ladder-step" id="ladder-step-13">$250,000</div>
+        <div class="ladder-step" id="ladder-step-14">$500,000</div>
+        <div class="ladder-step" id="ladder-step-15">$1,000,000</div>
+      </div>
+    </div>
+  
+    <div class="quiz-container">
+      <h2><span id="question-text">What is the right answer?</span></h2>
+  
+      <div class="options">
+        <button class="option-btn" id="option-a">Variant A</button>
+        <button class="option-btn" id="option-b">Variant B</button>
+        <button class="option-btn" id="option-c">Variant C</button>
+        <button class="option-btn" id="option-d">Variant D</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="game-end-overlay" id="game-over-overlay" style="display: none;">
+    <img src="assets/Lose.jpg" alt="Game Over" class="game-end-image" />
+  </div>
+
+  <div class="game-end-overlay" id="game-won-overlay" style="display: none;">
+    <img src="assets/Win.jpg" alt="Game Won" class="game-end-image" />
+  </div>
+</div>
+  <script src="Quiz_script.js"></script>
+</body>
+</html>

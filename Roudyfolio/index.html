@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Screen</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            height: 100vh;
+        }
+        .section {
+            flex: 1 1 200px; /* Allow sections to grow and shrink with a minimum basis */
+            min-width: 150px; /* Ensure sections don't get too small */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                height: auto;
+            }
+            .section {
+                min-height: 20vh; /* Give each section a minimum height on mobile */
+                flex: 1 1 100%; /* Full width on mobile */
+                font-size: 18px; /* Slightly smaller font for mobile */
+            }
+            .section:hover {
+                flex-grow: 1;
+                transform: none; /* Disable hover scaling on mobile */
+            }
+        }
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.5s ease;
+        }
+        .section:hover::before {
+            opacity: 0;
+        }
+        .section:hover {
+            flex-grow: 1.5;
+            transform: scale(1.05);
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+        .section:not(:hover) {
+            flex-grow: 0.9;
+        }
+        .section-content {
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-align: center;
+            padding: 0 10px;
+        }
+        .expanding {
+            position: fixed;
+            z-index: 100;
+            animation: expand 1s forwards;
+        }
+        .contracting {
+            animation: contract 1s forwards;
+        }
+        .expanding .section-content {
+            animation: fadeInContent 0.5s forwards 0.5s;
+        }
+        .hide-content .section-content {
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        @keyframes expand {
+            0% {
+                top: var(--top);
+                left: var(--left);
+                width: var(--width);
+                height: var(--height);
+            }
+            100% {
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+        }
+        @keyframes contract {
+            0% {
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+            100% {
+                top: var(--top);
+                left: var(--left);
+                width: var(--width);
+                height: var(--height);
+            }
+        }
+        @keyframes fadeInContent {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        #section1 { background-image: url(assets/About\ Me.webp); }
+        #section2 { background-image: url(assets/Quiz.png); }
+        #section3 { background-image: url(assets/Schedule.2.png); }
+        #section4 { background-image: url(assets/Achievements.webp); }
+        #section5 { background-image: url(assets/Contact\ Me.jpeg); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="section1" class="section"><div class="section-content">‎ About Me</div></div>
+        <div id="section2" class="section"><div class="section-content">‎ Quiz</div></div>
+        <div id="section3" class="section"><div class="section-content">‎ Schedule</div></div>
+        <div id="section4" class="section"><div class="section-content">‎ Achievements</div></div>
+        <div id="section5" class="section"><div class="section-content">‎ Contact Me</div></div>
+    </div>
+
+    <script>
+        const hoverSound = new Audio('assets/RA_Menu_Hover_SFX.mp3');
+        const clickSound = new Audio('assets/CS_Reload_SFX.mp3');
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.addEventListener('mouseenter', () => {
+                hoverSound.play();
+            });
+
+            section.addEventListener('click', (e) => {
+                clickSound.play();
+                expandSection(section);
+            });
+
+            section.addEventListener('mouseleave', () => {
+                hoverSound.pause();
+                hoverSound.currentTime = 0; // Reset the hover sound
+            });
+        });
+
+        function expandSection(section) {
+            const rect = section.getBoundingClientRect();
+            section.style.setProperty('--top', rect.top + 'px');
+            section.style.setProperty('--left', rect.left + 'px');
+            section.style.setProperty('--width', rect.width + 'px');
+            section.style.setProperty('--height', rect.height + 'px');
+            
+            // Hide content of all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hide-content'));
+            
+            // Show content of clicked section after a short delay
+            setTimeout(() => {
+                section.classList.remove('hide-content');
+            }, 200);
+            
+            section.classList.add('expanding');
+            
+            setTimeout(() => {
+                const pageNumber = section.textContent.split(' ')[1];
+               // alert(`Navigating to Page ${pageNumber}`);
+                // Replace this with actual navigation logic
+                 window.location.href = `${pageNumber}.html`;
+            }, 1000); // Wait for animation to complete
+        }
+
+        function contractSection(section) {
+            section.classList.remove('expanding');
+            section.classList.add('contracting');
+            
+            // Hide content immediately
+            section.classList.add('hide-content');
+            
+            setTimeout(() => {
+                section.classList.remove('contracting');
+                // Remove inline styles
+                section.style.removeProperty('--top');
+                section.style.removeProperty('--left');
+                section.style.removeProperty('--width');
+                section.style.removeProperty('--height');
+                
+                // Show all section contents
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('hide-content'));
+            }, 1000); // Wait for animation to complete
+        }
+
+        // Check if there's an expanded section when the page loads
+        window.addEventListener('load', () => {
+            const expandedSection = document.querySelector('.expanding');
+            if (expandedSection) {
+                contractSection(expandedSection);
+            }
+        });
+
+        // Listen for back button press
+        window.addEventListener('popstate', () => {
+            const expandedSection = document.querySelector('.expanding');
+            if (expandedSection) {
+                contractSection(expandedSection);
+            }
+        });
+    </script>
+</body>
+</html>

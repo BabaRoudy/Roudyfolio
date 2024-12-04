@@ -1,0 +1,251 @@
+body {
+    background-image: url(assets/Schedulemap.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .book {
+    position: absolute;
+    top: 50;
+    bottom: 50%;
+    left: 50;
+    right: 50%;
+    margin: auto;
+    width: 18.5rem;
+    height: 12.5rem;
+    perspective: 70rem;
+  }
+  .cover {
+    background-color: #5C4033;
+    transform: rotateY(0deg);
+    width: 19.25rem;
+    height: 22.5rem;
+  }
+  .page {
+    top: 0.25rem;
+    left: 0.25rem;
+    background-color: #e9e6c4;
+    transform: rotateY(0deg);
+    width: 19rem;
+    height: 22rem;
+    text-align: left;
+    font-size: 20px;
+    color: #777;
+    font-family: monospace;
+  }
+  .page::before {
+    display: block;
+    border-top: 1px dashed rgba(0, 0, 0, 0.3);
+    content: "Monday----------Friday: CSC 420 --------> 8 AM  Envade Poland --->Sept 1 CSC 421------->12:30 PM";
+    padding-bottom: 3rem;
+    
+  }
+  .page::after{
+   display: block;
+    border-top: 1px dashed rgba(0, 0, 0, 0.3);
+    content: "Tuesday--------Thursday: CSC 311------->9:30 AM Envade France -> May 10 CSC 320 --------->11 AM";
+    padding-bottom: 1rem;
+  }
+  .cover, .page {
+    position: absolute;
+    padding: 1rem;
+    transform-origin: 100% 0;
+    border-radius: 5px 0 0 5px;
+    box-shadow: inset 3px 0px 20px rgba(0, 0, 0, 0.2),
+      0px 0px 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+  }
+  .cover.turn {
+    animation: bookCover 3s forwards;
+  }
+  .page.turn {
+    animation: bookOpen 3s forwards;
+  }
+  .page:nth-of-type(1) {
+    animation-delay: 0.05s;
+  }
+  .page:nth-of-type(2) {
+    animation-delay: 0.33s
+  }
+  .page:nth-of-type(3) {
+    animation-delay: 0.66s;
+  }
+  .page:nth-of-type(4) {
+    animation: bookOpen150deg 3s forwards;
+    animation-delay: 0.99s;
+  }
+  .page:nth-of-type(5) {
+    animation: bookOpen30deg 3s forwards;
+    animation-delay: 1.2s;
+  }
+  .page:nth-of-type(6) {
+    animation: bookOpen55deg 3s forwards;
+    animation-delay: 1.25s;
+  }
+  @keyframes bookOpen {
+    30% { z-index: 999 }
+    100% {  transform: rotateY(180deg);
+      z-index: 999;}
+  }
+  @keyframes bookCover {
+    30% { z-index: 999 }
+    100% {  transform: rotateY(180deg);
+      z-index: 1;}
+  }
+  @keyframes bookOpen150deg {
+    30% { z-index: 999 }
+    100% {  transform: rotateY(115deg);
+      z-index: 999;}
+  }
+  @keyframes bookOpen55deg {
+    30% { z-index: 999 }
+    100% {  transform: rotateY(35deg);
+      z-index: 999;}
+  }
+  @keyframes bookOpen30deg {
+    50% { z-index: 999 }
+    100% {  transform: rotateY(20deg);
+      z-index: 999;}
+  }
+
+  body {
+
+    font-family: 'Fjalla One', sans-serif;
+      text-transform: uppercase;
+    height: 95vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: left;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+  
+  /*--Button Styles--*/
+  .btn-slice {
+      padding: 1.2rem 2.5rem;
+    border: 2px solid #f80101;
+      border-radius: 0rem;
+      color: #000000;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.3rem;
+    position: relative;
+    
+    -webkit-transition: all 1000ms cubic-bezier(0.890, 0, 0.140, 1); /* older webkit */
+    -webkit-transition: all 1000ms cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    -moz-transition: all 1000ms cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    -o-transition: all 1000ms cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    transition: all 1000ms cubic-bezier(0.890, -0.170, 0.140, 1.225); /* custom */
+  
+    -webkit-transition-timing-function: cubic-bezier(0.890, 0, 0.140, 1); /* older webkit */
+    -webkit-transition-timing-function: cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    -moz-transition-timing-function: cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    -o-transition-timing-function: cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    transition-timing-function: cubic-bezier(0.890, -0.170, 0.140, 1.225); /* custom */
+  }
+  
+  .btn-slice .top  {
+      position: relative;
+      height: 6px;
+      overflow: hidden;
+    top: 0;
+    -webkit-transition: all 300ms cubic-bezier(1.000, 0, 0.025, 1); /* older webkit */
+    -webkit-transition: all 300ms cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    -moz-transition: all 300ms cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    -o-transition: all 300ms cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    transition: all 300ms cubic-bezier(1.000, -0.055, 0.025, 1.040); /* custom */
+  
+    -webkit-transition-timing-function: cubic-bezier(1.000, 0, 0.025, 1); /* older webkit */
+    -webkit-transition-timing-function: cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    -moz-transition-timing-function: cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    -o-transition-timing-function: cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    transition-timing-function: cubic-bezier(1.000, -0.055, 0.025, 1.040); /* custom */
+    
+    -webkit-transition-delay:0.35s;     
+    -moz-transition-delay:0.35s; 
+    -ms-transition-delay:0.35s;     
+    -o-transition-delay:0.35s;     
+    transition-delay:0.35s;
+  }
+  
+  .btn-slice .bottom  {
+      position: relative;
+      height: 6px;
+      overflow: hidden;
+    bottom: 0;
+    -webkit-transition: all 300ms cubic-bezier(1.000, 0, 0.025, 1); /* older webkit */
+    -webkit-transition: all 300ms cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    -moz-transition: all 300ms cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    -o-transition: all 300ms cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    transition: all 300ms cubic-bezier(1.000, -0.055, 0.025, 1.040); /* custom */
+  
+    -webkit-transition-timing-function: cubic-bezier(1.000, 0, 0.025, 1); /* older webkit */
+    -webkit-transition-timing-function: cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    -moz-transition-timing-function: cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    -o-transition-timing-function: cubic-bezier(1.000, -0.055, 0.025, 1.040); 
+    transition-timing-function: cubic-bezier(1.000, -0.055, 0.025, 1.040); /* custom */
+    
+    -webkit-transition-delay:0.35s;     
+    -moz-transition-delay:0.35s; 
+    -ms-transition-delay:0.35s;     
+    -o-transition-delay:0.35s;     
+    transition-delay:0.35s;
+  }
+  
+  .btn-slice .bottom span {
+    top: -6px;
+    position: absolute;
+    left: 0;
+  }
+  
+  .btn-slice:hover .top {
+      top: -5px;
+    -webkit-transition-delay:0.35s;     
+    -moz-transition-delay:0.35s; 
+    -ms-transition-delay:0.35s;     
+    -o-transition-delay:0.35s;     
+    transition-delay:0.35s; 
+  }
+  
+  .btn-slice:hover .bottom {
+      bottom: -5px;
+    -webkit-transition-delay:0.35s;     
+    -moz-transition-delay:0.35s; 
+    -ms-transition-delay:0.35s;     
+    -o-transition-delay:0.35s;     
+    transition-delay:0.35s; 
+  }
+  .btn-slice:hover, .btn-slice:focus, .btn-slice:active {
+      margin-left: 10px;
+  }
+  .btn-slice:before{
+      content: '';
+      height: 1px;
+      width: 60px;
+      background-color: #ffffff;
+      position: absolute;
+      margin-top: 6px;
+      right: -35px;
+    
+    -webkit-transition: all 1000ms cubic-bezier(0.890, 0, 0.140, 1); /* older webkit */
+    -webkit-transition: all 1000ms cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    -moz-transition: all 1000ms cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    -o-transition: all 1000ms cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    transition: all 1000ms cubic-bezier(0.890, -0.170, 0.140, 1.225); /* custom */
+  
+    -webkit-transition-timing-function: cubic-bezier(0.890, 0, 0.140, 1); /* older webkit */
+    -webkit-transition-timing-function: cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    -moz-transition-timing-function: cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    -o-transition-timing-function: cubic-bezier(0.890, -0.170, 0.140, 1.225); 
+    transition-timing-function: cubic-bezier(0.890, -0.170, 0.140, 1.225); /* custom */
+  }
+  .btn-slice:hover:before{
+      width: 130%;
+  }
+
+

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Contact_Styles.css">
+    <title>Contact Me</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-image: url(assets/Contact_Bckg3.webp);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-position: center;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #000000;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #4c87af;
+        }
+
+        button {
+            background-color: #4c87af;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #35617e;
+        }
+
+        .error {
+            color: #ff0000;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #4CAF50;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Contact Me</h1>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <div class="error" id="nameError">Please enter a valid name (minimum 2 characters)</div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error" id="emailError">Please enter a valid email address</div>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                <div class="error" id="messageError">Please enter a message (minimum 10 characters)</div>
+            </div>
+
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="success-message" id="successMessage">
+            Thank you for your message! I'll get back to you soon.
+        </div>
+    </div>
+
+    <script>
+        // Audio elements
+        const typeSound = new Audio('assets/NewHitmarker_SFX.mp3');
+        const spaceSound = new Audio('assets/Kill_SFX.mp3');
+        const enterSound = new Audio('assets/ArmorBreak_SFX.mp3');
+        const BackspaceSound = new Audio('assets/OldHitmarker_SFX.mp3');
+
+        // Form elements
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const successMessage = document.getElementById('successMessage');
+
+        // Sound effect functions
+        function playTypeSound() {
+            typeSound.currentTime = 0;
+            typeSound.play();
+        }
+
+        function playSpaceSound() {
+            spaceSound.currentTime = 0;
+            spaceSound.play();
+        }
+
+        function playEnterSound() {
+            enterSound.currentTime = 0;
+            enterSound.play();
+        }
+
+        function playBackspaceSound() {
+            BackspaceSound.currentTime = 0;
+            BackspaceSound.play();
+        }
+        // Add sound effects to all input fields
+        const inputs = document.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === ' ') {
+                    playSpaceSound();
+                } else if (e.key === 'Enter') {
+                    playEnterSound();
+                } 
+                else if (e.key === 'Backspace') {
+                    playBackspaceSound();
+                } 
+                else {
+                    playTypeSound();
+                }
+            });
+        });
+
+
+
+        // Validation functions
+        function validateName(name) {
+            return name.length >= 2;
+        }
+
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validateMessage(message) {
+            return message.length >= 10;
+        }
+
+        // Form submission handler
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Validate name
+            if (!validateName(nameInput.value)) {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('nameError').style.display = 'none';
+            }
+
+            // Validate email
+            if (!validateEmail(emailInput.value)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').style.display = 'none';
+            }
+
+            // Validate message
+            if (!validateMessage(messageInput.value)) {
+                document.getElementById('messageError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('messageError').style.display = 'none';
+            }
+
+            // If form is valid, show success message
+            if (isValid) {
+                playEnterSound();
+                form.reset();
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }
+        });
+    </script>
+
+<div class="center">
+	<div class="wrapper">
+		<a href="#">
+			<div class="container container--whatsapp">
+				<div class="box box--left box--front">
+					<i class="ion ion-social-whatsapp"></i>
+				</div>		
+				<span class="follow follow--left">
+					+961 000 111
+				</span>
+			</div>
+		</a>
+
+		<a href="#">
+			<div class="container container--twitter">
+				<div class="box box--middle">
+					<i class="ion ion-social-twitter"></i>	
+				</div>
+				<span class="follow follow--middle">
+					@BabaRoudy
+				</span>
+			</div>
+		</a>
+
+
+		<a href="#">
+			<div class="container container--instagram">
+				<div class="box box--right">
+					<i class="ion ion-social-instagram"></i>
+				</div>
+				<span class="follow follow--right">
+					roudy_challita
+				</span>
+			</div>
+		</a>
+            <a href="index.html">
+                <div class="button">
+                Back
+                </div>
+            </a>
+	</div>
+</div>
+
+</body>
+</html>
